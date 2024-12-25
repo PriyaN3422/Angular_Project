@@ -34,7 +34,9 @@ export class SellerService {
      console.warn('result' + JSON.stringify(result));
      if(result.length===1){
       this.isLoginError.emit(false);
-      localStorage.setItem('seller',JSON.stringify(result.body))
+      localStorage.setItem('seller',JSON.stringify(result))
+    let local = localStorage.getItem('seller');
+    console.warn('local' + local);
       this.router.navigate(['seller-home'])
      
     }else{

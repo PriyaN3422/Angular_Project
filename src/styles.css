@@ -25,3 +25,11 @@ body{
     color:blueviolet;
     cursor: pointer;
 }
+.error-p{
+    color:red;
+    text-align: center;
+}
+ .message-p{
+   color:green;
+   text-align: center;
+}

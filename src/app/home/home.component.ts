@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ProductService } from '../services/product.service';
+import {product} from '../data-type';
 
 @Component({
   selector: 'app-home',
@@ -7,4 +9,14 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+  popularProduct:undefined|product[];
+constructor(private product:ProductService){}
+
+ngOnInit():void{
+  this.product.productImages().subscribe((result)=>{
+    console.warn(result);
+    this.popularProduct = result;
+})
 }
+}
+
