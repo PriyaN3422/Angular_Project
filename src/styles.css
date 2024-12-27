@@ -33,3 +33,11 @@ body{
    color:green;
    text-align: center;
 }
+.carousel-caption{
+    border-radius: 10px;
+    background-color: #0000007d;
+}
+.carousel-control-next-icon, .carousel-control-prev-icon{
+    background-color: black;
+    border-radius: 5px;
+}
