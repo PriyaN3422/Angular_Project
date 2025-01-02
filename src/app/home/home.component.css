@@ -4,3 +4,33 @@
     width: 100%;
     height: 450px;
 }
+.product-item img{
+    width:100%;
+    height:300px;
+    object-fit: contain;
+}
+.product-item{
+    margin-bottom: 40px;
+    border:1px solid #ccc;
+}
+.product-item .product-details{
+    border-top:1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 15px;
+}
+.product-item .product-head{
+    font-size:20px;
+    font-weight:600;
+}
+.product-item h6{
+    text-align: center;
+}
+.product-footer{
+    display: flex;
+    justify-content: space-between;
+    padding:10px;
+}
+.product-list{
+    margin-top: 80px;
+    margin-bottom: 100px;
+}

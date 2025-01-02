@@ -10,12 +10,17 @@ import {product} from '../data-type';
 export class HomeComponent {
 
   popularProduct:undefined|product[];
+  trendyProducts:undefined|product[];
 constructor(private product:ProductService){}
 
 ngOnInit():void{
   this.product.productImages().subscribe((result)=>{
     console.warn(result);
     this.popularProduct = result;
+})
+
+this.product.trendyProducts().subscribe((result)=>{
+  this.trendyProducts = result;
 })
 }
 }
