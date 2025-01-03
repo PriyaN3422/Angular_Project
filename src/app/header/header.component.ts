@@ -45,7 +45,7 @@ searchProduct(query:KeyboardEvent){
    
       console.warn(result);
       if(result.length>5){
-        result.length = length;
+        result.length = 5;
       }
       this.productSearch = result;
   })
@@ -54,5 +54,9 @@ searchProduct(query:KeyboardEvent){
 
 hideSearch(){
   this.productSearch = undefined;
+}
+
+submitSearch(val:string){
+    this.router.navigate([`search/${val}`]);
 }
 }

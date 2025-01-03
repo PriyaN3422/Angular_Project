@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {product} from '../data-type';
 import { Observable } from 'rxjs';
-
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-
+  private apiUrl = 'http://localhost:3000/products';
   constructor(private http:HttpClient) { }
 
   addProduct(data:product){
@@ -28,10 +28,20 @@ export class ProductService {
   productImages(){
     return this.http.get<product[]>('http://localhost:3000/products/?_limit=3');
   }
-  trendyProducts(){
+  
+
+  trendyProducts(): Observable<product[]> {
     return this.http.get<product[]>('http://localhost:3000/products/?_limit=8');
   }
-  searchProduct(query:string){
-    return this.http.get<product[]>(`http://localhost:3000/products?q=${query}`);
+
+  searchProduct(query: string): Observable<product[]> {
+    return this.http.get<product[]>(this.apiUrl).pipe(
+      map((products: product[]) => products.filter((product: product) => 
+        Object.values(product).some((value: any) => 
+          value.toString().toLowerCase().includes(query.toLowerCase())
+        )
+      ))
+    );
   }
+     
 }
