@@ -19,3 +19,9 @@
 .search-item span{
     margin-right: 10px;
 }
+.no-items-found {
+    text-align: center;
+    font-size: 24px;
+    color: blueviolet;
+    margin-top: 50px;
+  }

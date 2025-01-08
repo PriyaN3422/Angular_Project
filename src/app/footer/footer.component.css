@@ -1,0 +1,32 @@
+.footer {
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  .footer .container {
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+    margin-left: 0;
+  }
+  
+  .footer-links {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-links li {
+    margin: 0 20px;
+  }
+  
+  .footer-links li {
+    text-decoration: none;
+    color: blueviolet;
+  }
+  p{
+    padding-right: 10%;
+  }
+
+  

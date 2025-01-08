@@ -59,4 +59,9 @@ hideSearch(){
 submitSearch(val:string){
     this.router.navigate([`search/${val}`]);
 }
+
+navigateToProduct(id:string){
+  console.warn(id);
+  this.router.navigate([`product-details/${id}`]);
+}
 }

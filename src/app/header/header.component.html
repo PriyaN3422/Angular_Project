@@ -5,7 +5,7 @@
        <button (click)="submitSearch(searchInput.value)">Search</button>
        <ul class="suggested-search" *ngIf="productSearch">
         <li *ngFor="let item of productSearch">
-            <a>{{item.product}}</a>
+            <a (mousedown)="navigateToProduct(item.id)" routerLink="/product-details/{{item.id}}">{{item.product}}</a>
         </li>
        </ul>
     </div>
