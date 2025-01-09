@@ -25,7 +25,7 @@ export class ProductDetailsComponent {
       this.productQuantity+=1;
     }
     else if(this.productQuantity>1 && val==='min'){
-      this.productQuantity+=1;
+      this.productQuantity-=1;
     }
   }
 }
