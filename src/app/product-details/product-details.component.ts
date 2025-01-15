@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {product} from '../data-type'
+import {product, cart} from '../data-type'
 import { ProductService } from '../services/product.service';
 
 @Component({
@@ -11,12 +11,36 @@ import { ProductService } from '../services/product.service';
 export class ProductDetailsComponent {
   productData: product | undefined;
   productQuantity:number=1;
+  removeCart = false;
   constructor(private activeRoute: ActivatedRoute, private product: ProductService) {}
 
   ngOnInit(): void {
     let productId = this.activeRoute.snapshot.paramMap.get('productId');
     productId && this.product.getAProduct(productId).subscribe((data) => {
       this.productData = data;
+      let cartData = localStorage.getItem('localCart');
+      if(productId && cartData){
+         let items = JSON.parse(cartData);
+         items = items.filter((item:product) => item.id === productId);
+         if(items.length){
+         this.removeCart = true;
+         }
+         else{
+          this.removeCart = false;
+         }
+        
+      }
+      let user = localStorage.getItem('user');
+      if(user){
+       let userId = JSON.parse(user).id;
+       this.product.getCartList(userId);
+       this.product.cartData.subscribe((data)=>{
+         let item = data.filter((item:product) => item.productId?.toString() === productId?.toString());
+         if(item.length){
+           this.removeCart = true;
+         }
+       })
+      }
     });
   }
 
@@ -28,4 +52,32 @@ export class ProductDetailsComponent {
       this.productQuantity-=1;
     }
   }
+
+  addToCart(){
+    if(this.productData){
+      this.productData.quantity = this.productQuantity
+      if(!localStorage.getItem('user')){
+        this.product.addToCart(this.productData);
+        this.removeCart = true;
+      }
+      else{
+        let user=localStorage.getItem('user');
+        let userId = user && JSON.parse(user).id;
+        let cartData:cart = {...this.productData,productId:this.productData.id,userId};
+        delete cartData.id;
+        this.product.addCart(cartData).subscribe((data) => {
+          if(data){
+            this.product.getCartList(userId);
+            this.removeCart = true;
+          }
+      })
+    }
+  }
 }
+
+  removeToCart(productId:string){
+     this.product.removeFromCart(productId);
+     this.removeCart = false;
+  }
+}
+

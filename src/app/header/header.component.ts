@@ -13,6 +13,8 @@ export class HeaderComponent {
 menuType:string = 'default';
 sellerName:string = "";
 productSearch:undefined|product[];
+userName:string = '';
+cartItems = 0;
   constructor(private router:Router, private product:ProductService){}
   ngOnInit():void{
     this.router.events.subscribe((val:any)=>{
@@ -25,16 +27,38 @@ productSearch:undefined|product[];
           this.sellerName = sellerData.name;
          this.menuType = 'seller';
         }
+        else if(localStorage.getItem('user')){
+          let userStore = localStorage.getItem('user');
+          let userData = userStore && JSON.parse(userStore);
+          this.userName = userData.name;
+          this.menuType = 'user';
+        }
         else{
           this.menuType = 'default';
         }
       }
     })
+    let cartData = localStorage.getItem('localCart');
+    if(cartData){
+      this.cartItems = JSON.parse(cartData).length;
+    }
+    if(localStorage.getItem('user')){
+    this.product.cartData.subscribe((items) =>{
+      this.cartItems = items.length;
+    })
+  }
   }
 
   logout(){
     localStorage.removeItem('seller');
     this.router.navigate(['/']);
+   
+}
+
+userLogout(){
+  localStorage.removeItem('user');
+  this.router.navigate(['/']);
+  this.product.cartData.emit([]);
 }
 
 searchProduct(query:KeyboardEvent){
